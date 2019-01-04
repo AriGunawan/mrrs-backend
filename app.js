@@ -18,7 +18,7 @@ app.use(cors())
 
 app.use('/rooms', roomsRouter)
 
-const dbUrl = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/posts'
+const dbUrl = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/mrrs'
 mongoose.set('useNewUrlParser', true)
 mongoose.connect(dbUrl)
 var db = mongoose.connection;

@@ -3,10 +3,10 @@ const router = express.Router()
 const Room = require('../models/room')
 
 router.get('/', (request, response) => {
-  Room.find({}, 'title description location capacity', (error, posts) => {
+  Room.find({}, 'title description location capacity', (error, rooms) => {
     if (error) console.error(error)
 
-    response.send(posts)
+    response.send(rooms)
   }).sort({_id: -1})
 })
 
