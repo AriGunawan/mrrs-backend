@@ -18,8 +18,9 @@ app.use(cors())
 
 app.use('/rooms', roomsRouter)
 
+const dbUrl = process.env.MONGOLAB_URI || 'mongodb://localhost:27017/posts'
 mongoose.set('useNewUrlParser', true)
-mongoose.connect('mongodb://localhost:27017/posts')
+mongoose.connect(dbUrl)
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error'))
 db.once('open', function (callback) {
