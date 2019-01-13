@@ -1,13 +1,14 @@
 const express = require('express')
 const router = express.Router()
+const Floor = require('../models/floor')
 const Room = require('../models/room')
 
 router.get('/', (request, response) => {
-  Room.find({}, 'title description location capacity', (error, rooms) => {
+  Room.find({}, 'code name description capacity floor', (error, rooms) => {
     if (error) console.error(error)
 
     response.send(rooms)
-  }).sort({_id: -1})
+  }).populate('floor').sort({_id: -1})
 })
 
 router.post('/', (request, response) => {
