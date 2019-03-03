@@ -2,6 +2,44 @@ const express = require('express')
 const router = express.Router()
 const Floor = require('../models/floor')
 const Room = require('../models/room')
+const graphqlHTTP = require('express-graphql')
+const { buildSchema } = require('graphql')
+
+const schema = buildSchema(`
+  type Floor {
+    name: String,
+    description: String
+  }
+
+  type Room {
+    code: Int,
+    name: String,
+    description: String,
+    capacity: Int,
+    floor: Floor
+  }
+
+  type Query {
+    room: String
+  }
+`)
+
+const root = {
+  room: () => {
+    return "Hello"
+    // return Room.find({}, 'code name description capacity floor', (error, rooms) => {
+    //   if (error) console.error(error)
+  
+    //   return rooms
+    // }).populate('floor').sort({_id: -1})
+  }
+}
+
+// router.get('/graphql', graphqlHTTP({
+//   schema: schema,
+//   rootValue: root,
+//   graphiql: true
+// }))
 
 router.get('/', (request, response) => {
   Room.find({}, 'code name description capacity floor', (error, rooms) => {
